@@ -16,22 +16,26 @@ Global gwinWindow   As VBIDE.Window    'used to make sure we only run one instan
 Global gdocTabOrder As Object          'user doc object
 
 Global Const APP_CATEGORY = "Microsoft Visual Basic AddIns"
-
 Function InRunMode(VBInst As VBIDE.VBE) As Boolean
   InRunMode = (VBInst.CommandBars("File").Controls(1).Enabled = False)
 End Function
-
 Sub HandleKeyDown(ud As Object, KeyCode As Integer, Shift As Integer)
-  If Shift <> 4 Then Exit Sub
-  If KeyCode < 65 Or KeyCode > 90 Then Exit Sub
-  If gVBInstance.DisplayModel = vbext_dm_SDI Then Exit Sub
-  
-  If hwndMenu = 0 Then hwndMenu = FindHwndMenu(ud.hwnd)
-  PostMessage hwndMenu, WM_SYSKEYDOWN, KeyCode, &H20000000
-  KeyCode = 0
-  SetFocus hwndMenu
-End Sub
+   On Error GoTo ErrExit
 
+   If Shift <> 4 Then Exit Sub
+   If KeyCode < 65 Or KeyCode > 90 Then Exit Sub
+   If gVBInstance.DisplayModel = vbext_dm_SDI Then Exit Sub
+
+   If hwndMenu = 0 Then hwndMenu = FindHwndMenu(ud.hwnd)
+
+   PostMessage hwndMenu, WM_SYSKEYDOWN, KeyCode, &H20000000
+   KeyCode = 0
+   SetFocus hwndMenu
+   Exit Sub
+
+ErrExit:
+
+End Sub
 Function FindHwndMenu&(ByVal hwnd&)
   Dim h As Long
   

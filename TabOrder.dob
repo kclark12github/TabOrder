@@ -1,14 +1,14 @@
 VERSION 5.00
 Begin VB.UserDocument docTabOrder 
    ClientHeight    =   2820
-   ClientLeft      =   4110
-   ClientTop       =   3195
-   ClientWidth     =   2085
+   ClientLeft      =   4116
+   ClientTop       =   3192
+   ClientWidth     =   2076
    HScrollSmallChange=   225
    KeyPreview      =   -1  'True
    LockControls    =   -1  'True
    ScaleHeight     =   2820
-   ScaleWidth      =   2085
+   ScaleWidth      =   2076
    ScrollBars      =   0  'None
    Tag             =   "10"
    VScrollSmallChange=   225
@@ -148,7 +148,9 @@ End Sub
 Private Sub cmdRefresh_Click()
   RefreshList REFRESHCTLS
 End Sub
-
+Public Function Hwnd()
+   Hwnd = UserDocument.Hwnd
+End Function
 Private Sub UserDocument_Show()
   'load the strings from the resource file
   cmdUp.ToolTipText = LoadResString(100)
